@@ -1,23 +1,34 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
-const ItemSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true,
-    trim: true 
+const itemSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Item name is required"],
+      trim: true,
+    },
+    category: {
+      type: String,
+      required: [true, "Category is required"],
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: [true, "Price is required"],
+      min: [0, "Price cannot be negative"],
+    },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+    },
+    imageUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
   },
-  description: { 
-    type: String, 
-    required: true 
-  },
-  price: { 
-    type: Number, 
-    required: true,
-    min: 0,
-    default: 0
-  }
-}, { 
-  timestamps: true 
-});
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Item', ItemSchema);
+export default mongoose.model("Item", itemSchema);
